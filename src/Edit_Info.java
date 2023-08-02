@@ -535,7 +535,29 @@ public class Edit_Info extends javax.swing.JDialog {
         }// GEN-LAST:event_searchActionPerformed
 
         private void updateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updateActionPerformed
-                // TODO add your handling code here:
+                int id = Integer.parseInt((memberid.getText()));
+                try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection(
+                                        "jdbc:mysql://localhost:3306/Address_Book", "root",
+                                        "2412");
+                        String query2 = " "
+                                        + id;
+                        PreparedStatement pst = con.prepareStatement(query2);
+                        pst.executeUpdate();
+                        name.setText(null);
+                        fathername.setText(null);
+                        age.setText(null);
+                        mobileno.setText(null);
+                        jobdescription.setText(null);
+                        email_address.setText(null);
+                        address.setText(null);
+                        memberid.setText(null);
+                        JOptionPane.showMessageDialog(null, "Delete Successfully");
+                        con.close();
+                } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e, null, 0);
+                }
         }// GEN-LAST:event_updateActionPerformed
 
         private void ResetActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ResetActionPerformed
