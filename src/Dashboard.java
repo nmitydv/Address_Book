@@ -361,7 +361,6 @@ public class Dashboard extends javax.swing.JDialog {
 
         private void resetActionPerformed(java.awt.event.ActionEvent evt) {
                 searchingname.setText(null);
-                ((DefaultTableModel) Table1.getModel()).setNumRows(0);
 
         }
 
