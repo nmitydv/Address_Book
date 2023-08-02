@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class Edit_Info extends javax.swing.JDialog {
 
@@ -18,8 +17,6 @@ public class Edit_Info extends javax.swing.JDialog {
                 super(parent, modal);
                 initComponents();
         }
-
-        @SuppressWarnings("unchecked")
 
         private void initComponents() {
 
@@ -591,12 +588,12 @@ public class Edit_Info extends javax.swing.JDialog {
         }
 
         private void addmemberActionPerformed(java.awt.event.ActionEvent evt) {
-                New_Info ni = new New_Info();
+                new New_Info();
                 dispose();
         }
 
         private void backActionPerformed(java.awt.event.ActionEvent evt) {
-                Dashboard ds = new Dashboard();
+                new Dashboard();
                 dispose();
         }
 

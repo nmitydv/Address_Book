@@ -12,8 +12,6 @@ public class New_Info extends javax.swing.JDialog {
                 initComponents();
         }
 
-        @SuppressWarnings("unchecked")
-
         private void initComponents() {
 
                 jPanel1 = new javax.swing.JPanel();
@@ -400,7 +398,7 @@ public class New_Info extends javax.swing.JDialog {
         }
 
         private void backActionPerformed(java.awt.event.ActionEvent evt) {
-                Dashboard ds = new Dashboard();
+                new Dashboard();
                 dispose();
         }
 
@@ -446,7 +444,7 @@ public class New_Info extends javax.swing.JDialog {
         }
 
         private void EditmemberActionPerformed(java.awt.event.ActionEvent evt) {
-                Edit_Info ei = new Edit_Info();
+                new Edit_Info();
                 dispose();
         }
 

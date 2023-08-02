@@ -350,12 +350,12 @@ public class Dashboard extends javax.swing.JDialog {
         }
 
         private void newmemberActionPerformed(java.awt.event.ActionEvent evt) {
-                New_Info ni = new New_Info();
+                new New_Info();
                 dispose();
         }
 
         private void EditmemberActionPerformed(java.awt.event.ActionEvent evt) {
-                Edit_Info ei = new Edit_Info();
+                new Edit_Info();
                 dispose();
         }
 
