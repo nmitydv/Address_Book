@@ -625,7 +625,7 @@ public class Edit_Info extends javax.swing.JDialog {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
                                 Edit_Info dialog = new Edit_Info(new javax.swing.JFrame(), true);
-                                dialog.setLocation(280, 90);
+                                dialog.setLocation(470, 110);
                                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                                         @Override
                                         public void windowClosing(java.awt.event.WindowEvent e) {

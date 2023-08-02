@@ -429,35 +429,42 @@ public class New_Info extends javax.swing.JDialog {
         }// GEN-LAST:event_back1ActionPerformed
 
         private void addActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addmemberActionPerformed
-                try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        java.sql.Connection con = DriverManager.getConnection(
-                                        "jdbc:mysql://localhost:3306/Address_Book",
-                                        "root", "2412");
-                        String sql = "insert into member_detail (S_no,Name, fName , Age , mobile_no , Email , Job_Description , Address) values(?,?,?,?,?,?,?,?)";
-                        PreparedStatement pstmt = con.prepareStatement(sql);
-                        pstmt.setInt(1, Integer.parseInt(memberid.getText()));
-                        pstmt.setString(2, name.getText());
-                        pstmt.setString(3, fathername.getText());
-                        pstmt.setInt(4, Integer.parseInt(age.getText()));
-                        pstmt.setString(5, mobileno.getText());
-                        pstmt.setString(6, email_address.getText());
-                        pstmt.setString(7, jobdescription.getText());
-                        pstmt.setString(8, address.getText());
-                        pstmt.executeUpdate();
-                        name.setText(null);
-                        fathername.setText(null);
-                        age.setText(null);
-                        mobileno.setText(null);
-                        jobdescription.setText(null);
-                        email_address.setText(null);
-                        address.setText(null);
-                        memberid.setText(null);
-                        JOptionPane.showMessageDialog(null, "Insertion Successfull");
-                        con.close();
+                if (name.getText().length() <= 0 || memberid.getText().length() <= 0
+                                || fathername.getText().length() <= 0 || age.getText().length() <= 0
+                                || mobileno.getText().length() <= 0 || email_address.getText().length() <= 0
+                                || jobdescription.getText().length() <= 0 || address.getText().length() <= 0) {
+                        JOptionPane.showMessageDialog(null, " Enter All Valid Information");
+                } else {
+                        try {
+                                Class.forName("com.mysql.cj.jdbc.Driver");
+                                java.sql.Connection con = DriverManager.getConnection(
+                                                "jdbc:mysql://localhost:3306/Address_Book",
+                                                "root", "2412");
+                                String sql = "insert into member_detail (S_no,Name, fName , Age , mobile_no , Email , Job_Description , Address) values(?,?,?,?,?,?,?,?)";
+                                PreparedStatement pstmt = con.prepareStatement(sql);
+                                pstmt.setInt(1, Integer.parseInt(memberid.getText()));
+                                pstmt.setString(2, name.getText());
+                                pstmt.setString(3, fathername.getText());
+                                pstmt.setInt(4, Integer.parseInt(age.getText()));
+                                pstmt.setString(5, mobileno.getText());
+                                pstmt.setString(6, email_address.getText());
+                                pstmt.setString(7, jobdescription.getText());
+                                pstmt.setString(8, address.getText());
+                                pstmt.executeUpdate();
+                                name.setText(null);
+                                fathername.setText(null);
+                                age.setText(null);
+                                mobileno.setText(null);
+                                jobdescription.setText(null);
+                                email_address.setText(null);
+                                address.setText(null);
+                                memberid.setText(null);
+                                JOptionPane.showMessageDialog(null, "Insertion Successfull");
+                                con.close();
 
-                } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e, null, 0);
+                        } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, e, null, 0);
+                        }
                 }
 
         }// GEN-LAST:event_addmemberActionPerformed
