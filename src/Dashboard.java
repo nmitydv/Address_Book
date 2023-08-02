@@ -4,13 +4,16 @@
  */
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -48,6 +51,9 @@ public class Dashboard extends javax.swing.JDialog {
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
         // Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
@@ -55,7 +61,6 @@ public class Dashboard extends javax.swing.JDialog {
                 jPanel1 = new javax.swing.JPanel();
                 jLabel1 = new javax.swing.JLabel();
                 jLabel2 = new javax.swing.JLabel();
-                search = new javax.swing.JButton();
                 jLabel3 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
                 Editmember = new javax.swing.JButton();
@@ -64,6 +69,7 @@ public class Dashboard extends javax.swing.JDialog {
                 Table1 = new javax.swing.JTable();
                 newmember = new javax.swing.JButton();
                 reset = new javax.swing.JButton();
+                search = new javax.swing.JButton();
 
                 addmember.setBackground(new java.awt.Color(153, 0, 153));
                 addmember.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
@@ -92,17 +98,6 @@ public class Dashboard extends javax.swing.JDialog {
                 jLabel2.setForeground(new java.awt.Color(204, 0, 204));
                 jLabel2.setText("Book ");
 
-                search.setBackground(new java.awt.Color(153, 0, 153));
-                search.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-                search.setForeground(new java.awt.Color(255, 255, 255));
-                search.setText("Click Here");
-                search.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                search.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                searchActionPerformed(evt);
-                        }
-                });
-
                 jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
                 jLabel3.setText("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
@@ -116,6 +111,20 @@ public class Dashboard extends javax.swing.JDialog {
                 Editmember.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 EditmemberActionPerformed(evt);
+                        }
+                });
+
+                searchingname.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                searchingnameActionPerformed(evt);
+                        }
+                });
+                searchingname.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyReleased(java.awt.event.KeyEvent evt) {
+                                searchingnameKeyReleased(evt);
+                        }
+
+                        private void searchingnameKeyReleased(KeyEvent evt) {
                         }
                 });
 
@@ -143,6 +152,27 @@ public class Dashboard extends javax.swing.JDialog {
                 });
                 jScrollPane1.setViewportView(Table1);
 
+                try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection(
+                                        "jdbc:mysql://localhost:3306/Address_Book", "root",
+                                        "2412");
+                        String query2 = "Select S_no, name, job_description from member_detail";
+                        PreparedStatement pst = con.prepareStatement(query2);
+                        ResultSet r = pst.executeQuery(query2);
+                        while (r.next()) {
+                                String S_no = r.getString(1);
+                                String Name = r.getString(2);
+                                String Job_Description = r.getString(3);
+                                String tb[] = { S_no, Name, Job_Description
+                                };
+                                DefaultTableModel tbm = (DefaultTableModel) Table1.getModel();
+                                tbm.addRow(tb);
+
+                        }
+                } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e, null, 0);
+                }
                 newmember.setBackground(new java.awt.Color(153, 0, 153));
                 newmember.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
                 newmember.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,6 +192,17 @@ public class Dashboard extends javax.swing.JDialog {
                 reset.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 resetActionPerformed(evt);
+                        }
+                });
+
+                search.setBackground(new java.awt.Color(153, 0, 153));
+                search.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+                search.setForeground(new java.awt.Color(255, 255, 255));
+                search.setText("Search");
+                search.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                search.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                searchActionPerformed(evt);
                         }
                 });
 
@@ -207,28 +248,29 @@ public class Dashboard extends javax.swing.JDialog {
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 210,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)
                                                                 .addGroup(jPanel1Layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.LEADING,
-                                                                                false)
-                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                jPanel1Layout.createSequentialGroup()
-                                                                                                                .addComponent(jLabel4,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                0,
-                                                                                                                                Short.MAX_VALUE)
-                                                                                                                .addGap(73, 73, 73))
-                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                jPanel1Layout.createSequentialGroup()
-                                                                                                                .addComponent(search,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                125,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(448, 448,
-                                                                                                                                448))))
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addComponent(jLabel4,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                500,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(73, 73, 73))
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(129, 129, 129)
+                                                                                                .addComponent(search,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                125,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addContainerGap(
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE))))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout
                                                                 .createSequentialGroup()
                                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -250,15 +292,17 @@ public class Dashboard extends javax.swing.JDialog {
                                                                                 .addComponent(newmember))
                                                                 .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jLabel3)
-                                                                .addGap(16, 16, 16)
                                                                 .addGroup(jPanel1Layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addComponent(jLabel3)
+                                                                                                .addGap(20, 20, 20)
+                                                                                                .addComponent(searchingname,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                41,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                                 .addComponent(search,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                41,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(searchingname,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 41,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -306,6 +350,37 @@ public class Dashboard extends javax.swing.JDialog {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+        private void searchingnameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchingnameActionPerformed
+
+        }// GEN-LAST:event_searchingnameActionPerformed
+
+        private void searchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchActionPerformed
+                ((DefaultTableModel) Table1.getModel()).setNumRows(0);
+
+                try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection(
+                                        "jdbc:mysql://localhost:3306/Address_Book", "root",
+                                        "2412");
+                        String query2 = "Select S_no, name, job_description from member_detail where Name = '"
+                                        + searchingname.getText() + "'";
+                        PreparedStatement pst = con.prepareStatement(query2);
+                        ResultSet r = pst.executeQuery(query2);
+                        while (r.next()) {
+                                String S_no = r.getString(1);
+                                String Name = r.getString(2);
+                                String Job_Description = r.getString(3);
+                                String tb[] = { S_no, Name, Job_Description
+                                };
+                                DefaultTableModel tbm = (DefaultTableModel) Table1.getModel();
+                                tbm.addRow(tb);
+
+                        }
+                } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e, null, 0);
+                }
+        }// GEN-LAST:event_searchActionPerformed
+
         private void newmemberActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_newmemberActionPerformed
                 New_Info ni = new New_Info();
                 dispose();
@@ -315,66 +390,6 @@ public class Dashboard extends javax.swing.JDialog {
                 Edit_Info ei = new Edit_Info();
                 dispose();
         }// GEN-LAST:event_addmemberActionPerformed
-
-        private void searchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchActionPerformed
-                if (searchingname.getText().equals(null)) {
-                        try {
-                                Class.forName("com.mysql.cj.jdbc.Driver");
-                                Connection con = DriverManager.getConnection(
-                                                "jdbc:mysql://localhost:3306/Address_Book", "root",
-                                                "2412");
-                                // String query = "Select S_no , Name , Job_Description from member_detail where
-                                // "
-                                // + "Name = " + name;
-                                String query2 = "";
-                                PreparedStatement pst = con.prepareStatement(query2);
-                                ResultSet r = pst.executeQuery(query2);
-                                while (r.next()) {
-                                        String S_no = r.getString(1);
-                                        String Name = r.getString(2);
-                                        String Job_Description = r.getString(3);
-                                        String tb[] = { S_no, Name, Job_Description
-                                        };
-                                        DefaultTableModel tbm = (DefaultTableModel) Table1.getModel();
-                                        tbm.addRow(tb);
-                                        JOptionPane.showMessageDialog(null, "Searching Successfull");
-                                }
-                        } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, e, null, 0);
-                        }
-                }
-                // String name = searchingname.getText();
-                else {
-                        try {
-                                Class.forName("com.mysql.cj.jdbc.Driver");
-                                Connection con = DriverManager.getConnection(
-                                                "jdbc:mysql://localhost:3306/Address_Book", "root",
-                                                "2412");
-                                // String query = "Select S_no , Name , Job_Description from member_detail where
-                                // "
-                                // + "Name = " + name;
-                                String query2 = "Select S_no, name, job_description from member_detail";
-                                PreparedStatement pst = con.prepareStatement(query2);
-                                ResultSet r = pst.executeQuery(query2);
-                                while (r.next()) {
-                                        String S_no = r.getString(1);
-                                        String Name = r.getString(2);
-                                        String Job_Description = r.getString(3);
-                                        String tb[] = { S_no, Name, Job_Description
-                                        };
-                                        DefaultTableModel tbm = (DefaultTableModel) Table1.getModel();
-                                        tbm.addRow(tb);
-
-                                }
-                        } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, e, null, 0);
-                        }
-                }
-        }// GEN-LAST:event_searchActionPerformed
-
-        private DefaultTableModel getModel() {
-                return null;
-        }
 
         private void resetActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_search1ActionPerformed
                 searchingname.setText(null);
